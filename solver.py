@@ -12,7 +12,6 @@ def find_bombs(grid):
         for i in range(n):
             for j in range(n):
                 pos = grid[i][j]
-                # print(pos)
                 unopened = []
                 bombs = []
 
@@ -24,12 +23,8 @@ def find_bombs(grid):
                                 assert l in range(n) and m in range(n), ' '
                                 new_pos = grid[l][m]
                                 
-                                with open('log.txt', 'a') as f:
+                                with open('Assets/log.txt', 'a') as f:
                                     f.writelines(f"{pos} {[i, j]} {(l, m)}\n")
-                                
-                                # if grid[l][m] == 'U' or grid[l][m] == 'X':
-                                #     if [l, m] not in unopened:
-                                #         unopened.append([l, m])
 
                                 if new_pos == 'X':
                                     bombs.append([l, m])
@@ -42,8 +37,6 @@ def find_bombs(grid):
                             except:
                                 continue
 
-                    # print(pos, unopened, bombs)
-
                     try:
                         if len(unopened) == int(pos):
                             for u in unopened:
@@ -51,7 +44,7 @@ def find_bombs(grid):
 
                         if len(bombs) == int(pos):
                             pop = [i for i in unopened if i not in bombs]
-                            # print(pos, [i, j], pop)
+                            
                             for p in pop:
                                 grid[p[0]][p[1]] = 'P'
 
@@ -63,26 +56,17 @@ def find_bombs(grid):
 
         if mem == grid:
             flag = False
-            # return grid
-        # print('x')
+        
         mem = [row.copy() for row in grid]
-        # print('y')
     
     return grid
 
-def pop_blanks(grid):
-    n = len(grid)
+if __name__ == '__main__':
+    img = cv.imread('Assets/stage-6.png')
+    mines = gridmaker.convertToGrid(img, 9)
+    g = find_bombs(mines)
 
-    for i in range(n):
-        for j in range(n):
-            pass
-
-
-img = cv.imread('Assets/stage-6.png')
-mines = gridmaker.convertToGrid(img, 9)
-g = find_bombs(mines)
-
-for i in g:
-    for j in i:
-        print(j, end='  ')
-    print('')
+    for i in g:
+        for j in i:
+            print(j, end='  ')
+        print('')

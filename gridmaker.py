@@ -21,10 +21,7 @@ def convertToGrid(img, n):
             img_gs_o = cv.cvtColor(img_o, cv.COLOR_BGR2GRAY)
 
             bfilter = cv.bilateralFilter(img_gs_o, 11, 17, 17)
-            edged = cv.Canny(bfilter, 30, 200)
-            # cv.imshow('0', edged)
-            # cv.waitKey(0)
-            # cv.destroyAllWindows()
+            edged = cv.Canny(bfilter, 30, 200))
 
             res = reader.readtext(edged, allowlist='0123456789')
 
